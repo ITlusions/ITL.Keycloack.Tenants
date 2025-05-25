@@ -19,3 +19,6 @@ spec:
     hostname: {{ .Values.keycloak.hostname.hostname }}
   proxy:
     headers: {{ .Values.keycloak.proxy.headers }}
+  ingress:
+      enabled: true
+      className: "Traefik"

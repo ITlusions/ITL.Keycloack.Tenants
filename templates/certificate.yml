@@ -6,7 +6,7 @@ metadata:
   annotations:
     helm.sh/hook: pre-install,pre-upgrade
 spec:
-  secretName: {{ .Release.Name }}-{{ .Values.keycloak..name }}-tls
+  secretName: {{ .Release.Name }}-{{ .Values.keycloak.name }}-tls
   issuerRef:
     name: letsencrypt-issuer
     kind: ClusterIssuer

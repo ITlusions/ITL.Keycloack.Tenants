@@ -19,5 +19,3 @@ spec:
     hostname: {{ .Values.keycloak.hostname.hostname }}
   proxy:
     headers: {{ .Values.keycloak.proxy.headers }}
-  externalAccess:
-    enabled: {{ .Values.keycloak.externalAccess.enabled }}

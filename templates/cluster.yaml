@@ -1,0 +1,23 @@
+apiVersion: keycloak.org/v1alpha1
+kind: Keycloak
+metadata:
+  name: {{ .Release.Name }}-{{ .Values.keycloak.name }}
+spec:
+  instances: {{ .Values.keycloak.instances }}
+  db:
+    vendor: {{ .Values.keycloak.db.vendor }}
+    host: {{ .Values.keycloak.db.host }}
+    usernameSecret:
+      name: {{ .Values.keycloak.db.usernameSecret.name }}
+      key: {{ .Values.keycloak.db.usernameSecret.key }}
+    passwordSecret:
+      name: {{ .Values.keycloak.db.passwordSecret.name }}
+      key: {{ .Values.keycloak.db.passwordSecret.key }}
+  http:
+    tlsSecret: {{ .Release.Name }}-{{ .Values.keycloak..name }}-tls
+  hostname:
+    hostname: {{ .Values.keycloak.hostname.hostname }}
+  proxy:
+    headers: {{ .Values.keycloak.proxy.headers }}
+  externalAccess:
+    enabled: {{ .Values.keycloak.externalAccess.enabled }}

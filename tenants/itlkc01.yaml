@@ -1,0 +1,29 @@
+keycloak:
+  name: itlkc01-prd
+  instances: 2
+
+  db:
+    vendor: postgres
+    host: itlkc01-prd-postgres
+    usernameSecret:
+      name: keycloak-db-secret
+      key: username
+    passwordSecret:
+      name: keycloak-db-secret
+      key: password
+
+  http:
+    tlsSecret: itlkc01-prd-tls
+
+  hostname:
+    hostname: sts.itlusions.com
+
+  proxy:
+    headers: xforwarded
+
+  externalAccess:
+    enabled: true
+
+certificate:
+  additionalDnsNames:
+    - login.itlusions.com

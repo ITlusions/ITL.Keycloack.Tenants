@@ -1,0 +1,17 @@
+NOTES:
+-----
+
+Thank you for installing the Keycloak Helm chart!
+
+To retrieve the initial admin credentials for your Keycloak instance, run the following commands after deployment:
+
+Get the admin username:
+    kubectl get secret {{ .Release.Name }}-{{ .Values.keycloak.name }}-initial-admin -o jsonpath='{.data.username}' | base64 --decode
+
+Get the admin password:
+    kubectl get secret {{ .Release.Name }}-{{ .Values.keycloak.name }}-initial-admin -o jsonpath='{.data.password}' | base64 --decode
+
+Use these credentials to log in to the Keycloak admin console.
+
+---
+Niels Weistra @ ITLusions

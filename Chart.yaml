@@ -1,0 +1,16 @@
+apiVersion: v2
+name: itl.keycloak
+version: 0.1.0
+description: A Helm chart for deploying a Keycloak cluster and database
+type: application
+keywords:
+  - keycloak
+  - authentication
+  - sso
+  - oidc
+maintainers:
+  - name: Niels Weistra
+    email: n.weistra@itlusions.nl
+sources:
+  - https://github.com/itlusions/itl.keycloak
+dependencies: []

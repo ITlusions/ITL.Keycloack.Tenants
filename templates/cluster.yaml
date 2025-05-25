@@ -8,11 +8,11 @@ spec:
     vendor: {{ .Values.keycloak.db.vendor }}
     host: {{ .Values.keycloak.db.host }}
     usernameSecret:
-      name: {{ .Values.keycloak.db.usernameSecret.name }}
-      key: {{ .Values.keycloak.db.usernameSecret.key }}
+      name: {{ .Release.Name }}-{{ .Values.keycloak.name }}-credentials
+      key: username
     passwordSecret:
-      name: {{ .Values.keycloak.db.passwordSecret.name }}
-      key: {{ .Values.keycloak.db.passwordSecret.key }}
+      name: {{ .Release.Name }}-{{ .Values.keycloak.name }}-credentials
+      key: password
   http:
     tlsSecret: {{ .Release.Name }}-{{ .Values.keycloak.name }}-tls
   hostname:

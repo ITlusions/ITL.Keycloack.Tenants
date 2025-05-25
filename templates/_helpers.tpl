@@ -26,7 +26,7 @@ chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
 username: {{ $secret.data.username | b64dec }}
 password: {{ $secret.data.password | b64dec }}
 {{- else }}
-username: error
-password: error
+username: {{ "error" | b64enc }}
+password: {{ "error" | b64enc }}
 {{- end }}
 {{- end -}}

@@ -14,7 +14,7 @@ spec:
       name: {{ .Values.keycloak.db.passwordSecret.name }}
       key: {{ .Values.keycloak.db.passwordSecret.key }}
   http:
-    tlsSecret: {{ .Release.Name }}-{{ .Values.keycloak..name }}-tls
+    tlsSecret: {{ .Release.Name }}-{{ .Values.keycloak.name }}-tls
   hostname:
     hostname: {{ .Values.keycloak.hostname.hostname }}
   proxy:

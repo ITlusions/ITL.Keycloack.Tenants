@@ -21,6 +21,7 @@ chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
 {{- end -}}
 
 {{- define "itl.keycloack.tenants.secretCredentials" -}}
-username: {{ .Values.secret.username | default (lookup "v1" "Secret" .Release.Namespace "my-secret").data.username | b64dec }}
-password: {{ .Values.secret.password | default (lookup "v1" "Secret" .Release.Namespace "my-secret").data.password | b64dec }}
+{{- $secret := lookup "v1" "Secret" .Release.Namespace "my-secret" }}
+username: {{ .Values.secret.username | default (ternary ($secret.data.username | b64dec) "error" $secret) }}
+password: {{ .Values.secret.password | default (ternary ($secret.data.password | b64dec) "error" $secret) }}
 {{- end -}}

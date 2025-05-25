@@ -21,4 +21,4 @@ spec:
     headers: {{ .Values.keycloak.proxy.headers }}
   ingress:
       enabled: true
-      className: "Traefik"
+      className: "traefik"

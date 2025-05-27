@@ -5,7 +5,7 @@ keycloak:
 
   db:
     vendor: postgres
-    host: itl-cnpg-clusters-itlcnpg01-rw
+    host: postgres-db
     usernameSecret:
       name: keycloak-db-secret
       key: username

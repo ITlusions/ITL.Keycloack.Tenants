@@ -14,11 +14,17 @@ spec:
       name: {{ .Release.Name }}-{{ .Values.keycloak.name }}-credentials
       key: password
   http:
+    httpEnabled: true
+    httpPort: 8180
+    httpsPort: 8543
     tlsSecret: {{ .Release.Name }}-{{ .Values.keycloak.name }}-tls
   hostname:
     hostname: {{ .Values.keycloak.hostname.hostname }}
+    strict: false
   proxy:
     headers: {{ .Values.keycloak.proxy.headers }}
+  networkPolicy:
+    enabled: false
   ingress:
       enabled: false
-      className: "traefik"
+      className: traefik

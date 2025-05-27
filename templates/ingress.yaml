@@ -1,5 +1,5 @@
 {{- if .Values.ingress.enabled -}}
-{{- $fullName := printf "itl-keycloak-tenants-%s-service" .Release.Namespace .Values.keycloak.name -}}
+{{- $fullName := printf "itl-keycloak-tenants-%s-service" .Values.keycloak.name -}}
 {{- $svcPort := 8543 -}}
 {{- if and .Values.ingress.className (not (semverCompare ">=1.18-0" .Capabilities.KubeVersion.GitVersion)) }}
   {{- if not (hasKey .Values.ingress.annotations "kubernetes.io/ingress.class") }}

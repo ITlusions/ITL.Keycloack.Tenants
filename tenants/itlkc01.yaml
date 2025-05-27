@@ -1,10 +1,11 @@
 keycloak:
   name: itlkc01-prd
+  secretNamespace: 
   instances: 2
 
   db:
     vendor: postgres
-    host: itlkc01-prd-postgres
+    host: itl-cnpg-clusters-itlcnpg01-rw
     usernameSecret:
       name: keycloak-db-secret
       key: username

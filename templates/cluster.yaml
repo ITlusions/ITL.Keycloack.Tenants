@@ -23,5 +23,5 @@ spec:
   proxy:
     headers: {{ .Values.keycloak.proxy.headers }}
   ingress:
-      enabled: true
+      enabled: false
       className: "traefik"

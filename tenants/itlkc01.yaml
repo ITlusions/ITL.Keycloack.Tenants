@@ -31,7 +31,7 @@ certificate:
 
 ingress:
   enabled: true
-  className: ""
+  className: "traefik"
   annotations:
     traefik.ingress.kubernetes.io/router.entrypoints: websecure  # Specify entry points
     ingressClassName: "traefik"

@@ -1,6 +1,6 @@
 keycloak:
   name: itlkc01-prd
-  secretNamespace: 
+  secretNamespace: itl-cnpg-clusters
   instances: 2
 
   db:

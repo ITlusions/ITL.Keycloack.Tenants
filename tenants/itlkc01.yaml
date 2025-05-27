@@ -42,7 +42,7 @@ ingress:
         - path: /
           pathType: ImplementationSpecific
   tls:
-    - secretName: itl-keycloack-tenants-itlkc01-prd-tls
+    - secretName: itl-keycloak-tenants-itlkc01-prd-tls
       hosts:
         - sts.itlusions.com
 

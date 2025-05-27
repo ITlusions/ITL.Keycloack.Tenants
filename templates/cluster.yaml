@@ -26,5 +26,5 @@ spec:
   networkPolicy:
     enabled: false
   ingress:
-      enabled: false
+      enabled: true
       className: traefik

@@ -14,7 +14,7 @@ spec:
       name: {{ .Release.Name }}-{{ .Values.keycloak.name }}-credentials
       key: password
   http:
-    httpEnabled: true
+    httpEnabled: false
     httpPort: 8180
     httpsPort: 8543
     tlsSecret: {{ .Release.Name }}-{{ .Values.keycloak.name }}-tls
@@ -26,5 +26,4 @@ spec:
   networkPolicy:
     enabled: false
   ingress:
-      enabled: true
-      className: traefik
+      enabled: false

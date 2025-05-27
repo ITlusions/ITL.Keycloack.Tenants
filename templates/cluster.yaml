@@ -14,9 +14,6 @@ spec:
       name: {{ .Release.Name }}-{{ .Values.keycloak.name }}-credentials
       key: password
   http:
-    httpEnabled: false
-    httpPort: 8180
-    httpsPort: 8543
     tlsSecret: {{ .Release.Name }}-{{ .Values.keycloak.name }}-tls
   hostname:
     hostname: {{ .Values.keycloak.hostname.hostname }}

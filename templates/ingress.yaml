@@ -1,5 +1,6 @@
 {{- if .Values.ingress.enabled -}}
-{{- $fullName := printf "itl-keycloak-tenants-%s-service" .Values.keycloak.name -}}
+{{- $fullName := include "itl.keycloack.tenants.fullname" . -}}
+{{- $svcName := printf "itl-keycloak-tenants-%s-service" .Values.keycloak.name -}}
 {{- $svcPort := 8543 -}}
 {{- if and .Values.ingress.className (not (semverCompare ">=1.18-0" .Capabilities.KubeVersion.GitVersion)) }}
   {{- if not (hasKey .Values.ingress.annotations "kubernetes.io/ingress.class") }}
@@ -15,7 +16,7 @@ apiVersion: extensions/v1beta1
 {{- end }}
 kind: Ingress
 metadata:
-  name: {{ $fullName }}-ingress
+  name: {{ $fullName }}
   labels:
     {{- include "itl.keycloack.tenants.labels" . | nindent 4 }}
   {{- with .Values.ingress.annotations }}
@@ -49,11 +50,11 @@ spec:
             backend:
               {{- if semverCompare ">=1.19-0" $.Capabilities.KubeVersion.GitVersion }}
               service:
-                name: {{ $fullName }}
+                name: {{ $svcName }}
                 port:
                   number: {{ $svcPort }}
               {{- else }}
-              serviceName: {{ $fullName }}
+              serviceName: {{ $svcName }}
               servicePort: {{ $svcPort }}
               {{- end }}
           {{- end }}

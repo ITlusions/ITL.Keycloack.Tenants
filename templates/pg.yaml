@@ -28,6 +28,13 @@ spec:
               value: /data/pgdata
             - name: POSTGRES_DB
               value: keycloak
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              cpu: 500m
+              memory: 1Gi
   volumeClaimTemplates:
     - metadata:
         name: pgdata

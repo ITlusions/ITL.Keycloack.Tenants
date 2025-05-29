@@ -45,7 +45,6 @@ spec:
           requests:
             storage: 8Gi
         volumeMode: Filesystem
-        persistentVolumeReclaimPolicy: Retain
 ---
 apiVersion: v1
 kind: Service

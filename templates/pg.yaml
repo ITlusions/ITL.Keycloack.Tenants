@@ -39,7 +39,7 @@ metadata:
 spec:
   selector:
     app: postgresql-db
-  type: ClusterIPs
+  type: ClusterIP
   ports:
   - port: 5432
     targetPort: 5432

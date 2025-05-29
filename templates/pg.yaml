@@ -18,7 +18,7 @@ spec:
           image: postgres:15
           volumeMounts:
             - mountPath: /data
-              name: cache-volume
+              name: pgdata
           env:
             - name: POSTGRES_USER
               value: error
@@ -28,9 +28,17 @@ spec:
               value: /data/pgdata
             - name: POSTGRES_DB
               value: keycloak
-      volumes:
-        - name: cache-volume
-          emptyDir: {}
+  volumeClaimTemplates:
+    - metadata:
+        name: pgdata
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        storageClassName: openebs-hostpath
+        resources:
+          requests:
+            storage: 8Gi
+        volumeMode: Filesystem
+        persistentVolumeReclaimPolicy: Retain
 ---
 apiVersion: v1
 kind: Service

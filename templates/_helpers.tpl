@@ -21,7 +21,7 @@ chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
 {{- end -}}
 
 {{- define "itl.keycloack.tenants.secretCredentials" -}}
-{{- $keycloack := .Values.keyclock | default dict -}}
+{{- $keycloack := .Values.keycloak | default dict -}}
 {{- $secretNamespace := $keycloack.secretNamespace | default .Release.Namespace -}}
 {{- $secretName := printf "itl-cnpg-clusters-%s-secret" ($keycloack.name | default "itlcnpg01") -}}
 {{- $secret := lookup "v1" "Secret" $secretNamespace $secretName }}

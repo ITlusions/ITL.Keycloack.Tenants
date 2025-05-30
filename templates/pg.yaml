@@ -36,7 +36,7 @@ spec:
               cpu: 500m
               memory: 1Gi
   volumeClaimTemplates:
-  - apiVersion: v1	
+    - apiVersion: v1	
       kind: PersistentVolumeClaim
       metadata:
         name: pgdata

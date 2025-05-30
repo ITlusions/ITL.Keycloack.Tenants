@@ -36,7 +36,9 @@ spec:
               cpu: 500m
               memory: 1Gi
   volumeClaimTemplates:
-    - metadata:
+  - apiVersion: v1	
+      kind: PersistentVolumeClaim
+      metadata:
         name: pgdata
       spec:
         accessModes: [ "ReadWriteOnce" ]

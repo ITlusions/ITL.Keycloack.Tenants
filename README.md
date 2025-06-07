@@ -89,3 +89,11 @@ helm uninstall <release-name>
 - For advanced configuration, see the chart's `templates/` and `values.yaml`.
 - This chart is suitable for production and development environments.
 - For more details on Keycloak multi-tenancy, see the [Keycloak documentation](https://www.keycloak.org/documentation).
+
+---
+<br>
+
+
+**Niels Weistra** at **n.weistra@itlusions.com**.
+
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-blue?logo=linkedin&logoColor=white)](https://nl.linkedin.com/in/nielswei)

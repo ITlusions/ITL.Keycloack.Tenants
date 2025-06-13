@@ -25,27 +25,12 @@ modsecurity:
 modsecurity-crs:
   enabled: true  # will be set by templating helpers
   proxy: {}      # will be overwritten by merge with modsecurity section
-  configMaps:
-  modsec-overrides:
-    enabled: true
-    data:
-      modsec-ignore-healthz.conf: |
-        SecRule REQUEST_URI "@beginsWith /healthz" \
-          "id:999001,phase:1,pass,nolog,ctl:ruleRemoveById=920350"
   persistence:
     modsecurity-custom-rules:
       enabled: true
       type: configmap
       objectName: modsec-overrides
       mountPath: /etc/modsecurity.d/custom
-
-configMaps:
-  modsec-overrides:
-    enabled: true
-    data:
-      modsec-ignore-healthz.conf: |
-        SecRule REQUEST_URI "@beginsWith /healthz" \
-          "id:999001,phase:1,pass,nolog,ctl:ruleRemoveById=920350"
 
 keycloak:
   name: itlkc01-prd

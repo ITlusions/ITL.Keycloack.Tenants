@@ -2,13 +2,13 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-    name: {{ .Values.modsecurity-crs.persistence.modsecurity-custom-rules.name | default "modsec-overrides" }}
-    namespace: {{ .Release.Namespace }}
-    labels:
-        app.kubernetes.io/name: modsecurity-overrides
-        app.kubernetes.io/instance: {{ .Release.Name }}
+	name: modsec-overrides
+	namespace: {{ .Release.Namespace }}
+	labels:
+		app.kubernetes.io/name: modsecurity-overrides
+		app.kubernetes.io/instance: {{ .Release.Name }}
 data:
-    modsec-ignore-healthz.conf: |
-        SecRule REQUEST_URI "@beginsWith /healthz" \
-            "id:999001,phase:1,pass,nolog,ctl:ruleRemoveById=920350"
+	modsec-ignore-healthz.conf: |
+		SecRule REQUEST_URI "@beginsWith /healthz" \
+				"id:999001,phase:1,pass,nolog,ctl:ruleRemoveById=920350"
 {{- end }}

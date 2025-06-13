@@ -1,5 +1,15 @@
 modsecurity:
   enabled: false
+  proxy:
+    replicaCount: 2
+    resources:
+      limits:
+        cpu: 500m
+        memory: 512Mi
+
+modsecurity-crs:
+  enabled: true  # will be set by templating helpers
+  proxy: {}      # will be overwritten by merge with modsecurity section
 
 keycloak:
   name: itlkc01-prd

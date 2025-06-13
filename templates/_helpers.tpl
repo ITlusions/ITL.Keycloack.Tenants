@@ -30,3 +30,20 @@ proxy:
 {{ .Values.serviceAccount.name }}
 {{- end -}}
 {{- end -}}
+
+# {{- define "itl.keycloack.tenants.secretCredentials" -}}
+# {{- $keycloack := .Values.keycloak | default dict -}}
+# {{- $secretNamespace := $keycloack.secretNamespace | default .Release.Namespace -}}
+# {{- $secretName := printf "itl-cnpg-clusters-%s-secret" ($keycloack.name | default "itlcnpg01") -}}
+# {{- $secret := lookup "v1" "Secret" $secretNamespace $secretName }}
+# {{- if not $secret }}
+# {{- fail (printf "Secret %s not found in namespace %s" $secretName $secretNamespace) }}
+# {{- end }}
+# {{- if $secret }}
+# username: {{ $secret.data.username | b64dec }}
+# password: {{ $secret.data.password | b64dec }}
+# {{- else }}
+# username: {{ "error" | b64enc }}
+# password: {{ "error" | b64enc }}
+# {{- end }}
+# {{- end -}}

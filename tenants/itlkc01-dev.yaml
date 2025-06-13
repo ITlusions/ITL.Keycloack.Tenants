@@ -1,0 +1,50 @@
+modsecurity:
+  enabled: true
+keycloak:
+  name: itlkc01-dev
+  secretNamespace: itl-cnpg-clusters
+  instances: 2
+
+  db:
+    vendor: postgres
+    host: postgres-db
+    usernameSecret:
+      name: keycloak-db-secret
+      key: username
+    passwordSecret:
+      name: keycloak-db-secret
+      key: password
+
+  http:
+    tlsSecret: itlkc01-dev-tls
+
+  hostname:
+    hostname: sts.dev.itlusions.com
+
+  proxy:
+    headers: xforwarded
+
+  externalAccess:
+    enabled: true
+
+certificate:
+  additionalDnsNames:
+    - login.dev.itlusions.com
+
+ingress:
+  enabled: true
+  className: "traefik"
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure  # Specify entry points
+    ingressClassName: "traefik"
+    #cert-manager.io/cluster-issuer: "letsencrypt-issuer"
+  hosts:
+    - host: sts.dev.itlusions.com
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls:
+    - secretName: itl-keycloak-tenants-itlkc01-dev-tls
+      hosts:
+        - sts.dev.itlusions.com
+

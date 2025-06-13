@@ -32,6 +32,14 @@ modsecurity-crs:
       objectName: modsec-overrides
       mountPath: /etc/modsecurity.d/custom
 
+configMaps:
+  modsec-overrides:
+    enabled: true
+    data:
+      modsec-ignore-healthz.conf: |
+        SecRule REQUEST_URI "@beginsWith /healthz" \
+          "id:999001,phase:1,pass,nolog,ctl:ruleRemoveById=920350"
+
 keycloak:
   name: itlkc01-prd
   secretNamespace: itl-cnpg-clusters

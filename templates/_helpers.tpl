@@ -16,11 +16,25 @@ chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
 {{- $root := . -}}
 enabled: {{ $root.Values.modsecurity.enabled | default false }}
 proxy:
-  replicaCount: {{ $root.Values.modsecurity.proxy.replicaCount | default 1 }}
-  resources:
-    limits:
-      cpu: {{ $root.Values.modsecurity.proxy.resources.limits.cpu | default "250m" }}
-      memory: {{ $root.Values.modsecurity.proxy.resources.limits.memory | default "256Mi" }}
+	replicaCount: {{ $root.Values.modsecurity.proxy.replicaCount | default 1 }}
+	resources:
+		limits:
+			cpu: {{ $root.Values.modsecurity.proxy.resources.limits.cpu | default "250m" }}
+			memory: {{ $root.Values.modsecurity.proxy.resources.limits.memory | default "256Mi" }}
+    service:
+			main:
+				ports:
+					https:
+						enabled: {{ $root.Values.modsecurity.proxy.service.main.ports.https.enabled | default true }}
+						port: {{ $root.Values.modsecurity.proxy.service.main.ports.https.port | default 8443 }}
+						targetPort: {{ $root.Values.modsecurity.proxy.service.main.ports.https.targetPort | default 8443 }}
+						protocol: {{ $root.Values.modsecurity.proxy.service.main.ports.https.protocol | default "TCP" }}
+		securityContext:
+			container:
+				runAsNonRoot: {{ $root.Values.modsecurity.proxy.securityContext.container.runAsNonRoot | default false }}
+				readOnlyRootFilesystem: {{ $root.Values.modsecurity.proxy.securityContext.container.readOnlyRootFilesystem | default false }}
+				runAsUser: {{ $root.Values.modsecurity.proxy.securityContext.container.runAsUser | default 0 }}
+				runAsGroup: {{ $root.Values.modsecurity.proxy.securityContext.container.runAsGroup | default 0 }}
 {{- end -}}
 
 {{- define "itl.keycloack.tenants.serviceAccountName" -}}

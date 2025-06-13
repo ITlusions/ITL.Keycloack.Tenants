@@ -6,6 +6,21 @@ modsecurity:
       limits:
         cpu: 500m
         memory: 512Mi
+    service:
+      main:
+        ports:
+          https:
+            enabled: true
+            port: 8443     # Expose 8443 outside
+            targetPort: 8443  # Must match container port
+            protocol: TCP
+    securityContext:
+      container:
+        runAsNonRoot: false
+        readOnlyRootFilesystem: false
+        runAsUser: 0
+        runAsGroup: 0
+  
 
 modsecurity-crs:
   enabled: true  # will be set by templating helpers

@@ -1,3 +1,6 @@
+modsecurity:
+  enabled: false
+
 keycloak:
   name: itlkc01-prd
   secretNamespace: itl-cnpg-clusters

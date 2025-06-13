@@ -1,5 +1,5 @@
 modsecurity:
-  enabled: false
+  enabled: true
   proxy:
     replicaCount: 2
     resources:
@@ -25,6 +25,12 @@ modsecurity:
 modsecurity-crs:
   enabled: true  # will be set by templating helpers
   proxy: {}      # will be overwritten by merge with modsecurity section
+  persistence:
+    modsecurity-custom-rules:
+      enabled: true
+      type: configMap
+      name: modsec-overrides
+      mountPath: /etc/modsecurity.d/custom
 
 keycloak:
   name: itlkc01-prd

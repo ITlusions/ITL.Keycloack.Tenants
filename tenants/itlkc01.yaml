@@ -29,7 +29,7 @@ modsecurity-crs:
     modsecurity-custom-rules:
       enabled: true
       type: configmap
-      name: modsec-overrides
+      objectName: modsec-overrides
       mountPath: /etc/modsecurity.d/custom
 
 keycloak:

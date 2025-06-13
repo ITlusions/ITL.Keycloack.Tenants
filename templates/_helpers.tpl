@@ -12,6 +12,17 @@ release: {{ .Release.Name }}
 chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
 {{- end -}}
 
+{{- define "modsecurity-crs.values" -}}
+{{- $root := . -}}
+enabled: {{ $root.Values.modsecurity.enabled | default false }}
+proxy:
+  replicaCount: {{ $root.Values.modsecurity.proxy.replicaCount | default 1 }}
+  resources:
+    limits:
+      cpu: {{ $root.Values.modsecurity.proxy.resources.limits.cpu | default "250m" }}
+      memory: {{ $root.Values.modsecurity.proxy.resources.limits.memory | default "256Mi" }}
+{{- end -}}
+
 {{- define "itl.keycloack.tenants.serviceAccountName" -}}
 {{- if .Values.serviceAccount.create -}}
 {{ .Release.Name }}-{{ .Chart.Name }}
@@ -20,19 +31,19 @@ chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
 {{- end -}}
 {{- end -}}
 
-{{- define "itl.keycloack.tenants.secretCredentials" -}}
-{{- $keycloack := .Values.keycloak | default dict -}}
-{{- $secretNamespace := $keycloack.secretNamespace | default .Release.Namespace -}}
-{{- $secretName := printf "itl-cnpg-clusters-%s-secret" ($keycloack.name | default "itlcnpg01") -}}
-{{- $secret := lookup "v1" "Secret" $secretNamespace $secretName }}
-{{- if not $secret }}
-{{- fail (printf "Secret %s not found in namespace %s" $secretName $secretNamespace) }}
-{{- end }}
-{{- if $secret }}
-username: {{ $secret.data.username | b64dec }}
-password: {{ $secret.data.password | b64dec }}
-{{- else }}
-username: {{ "error" | b64enc }}
-password: {{ "error" | b64enc }}
-{{- end }}
-{{- end -}}
+# {{- define "itl.keycloack.tenants.secretCredentials" -}}
+# {{- $keycloack := .Values.keycloak | default dict -}}
+# {{- $secretNamespace := $keycloack.secretNamespace | default .Release.Namespace -}}
+# {{- $secretName := printf "itl-cnpg-clusters-%s-secret" ($keycloack.name | default "itlcnpg01") -}}
+# {{- $secret := lookup "v1" "Secret" $secretNamespace $secretName }}
+# {{- if not $secret }}
+# {{- fail (printf "Secret %s not found in namespace %s" $secretName $secretNamespace) }}
+# {{- end }}
+# {{- if $secret }}
+# username: {{ $secret.data.username | b64dec }}
+# password: {{ $secret.data.password | b64dec }}
+# {{- else }}
+# username: {{ "error" | b64enc }}
+# password: {{ "error" | b64enc }}
+# {{- end }}
+# {{- end -}}

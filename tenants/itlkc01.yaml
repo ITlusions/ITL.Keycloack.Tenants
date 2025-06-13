@@ -28,7 +28,7 @@ modsecurity-crs:
   persistence:
     modsecurity-custom-rules:
       enabled: true
-      type: configMap
+      type: configmap
       name: modsec-overrides
       mountPath: /etc/modsecurity.d/custom
 

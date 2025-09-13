@@ -1,0 +1,14 @@
+# Default values for ITL Keycloak Tenants
+# This is a YAML-formatted file.
+
+# ModSecurity Configuration
+modsecurity:
+  enabled: true
+
+# Keycloak Configuration
+keycloak:
+  enabled: true
+
+# Database Configuration  
+database:
+  enabled: true

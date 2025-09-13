@@ -1,7 +1,7 @@
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
-    name: {{ .Release.Name }}-{{ .Values.keycloak.name }}-pg-cluster
+    name: {{ .Values.keycloak.name }}-pg-cluster
 spec:
     instances: 3
     imageName: ghcr.io/cloudnative-pg/postgresql:16
@@ -10,10 +10,10 @@ spec:
         storageClass: ha-dbs-lh
     bootstrap:
         initdb:
-            database: {{ .Release.Name }}-{{ .Values.keycloak.name }}
-            owner: {{ .Release.Name }}-{{ .Values.keycloak.name }}
+            database: {{ .Values.keycloak.name }}
+            owner: {{ .Values.keycloak.name }}
             secret:
-                name: {{ .Release.Name }}-{{ .Values.keycloak.name }}-db-secret
+                name: {{ .Values.keycloak.name }}-db-secret
     monitoring:
         enablePodMonitor: true
     resources:
@@ -24,7 +24,7 @@ spec:
             cpu: 500m
             memory: 1Gi
     superuserSecret:
-        name: {{ .Release.Name }}-{{ .Values.keycloak.name }}-db-superuser-secret
+        name: {{ .Values.keycloak.name }}-db-superuser-secret
     serviceAccountTemplate:
         metadata:
-            name: {{ .Release.Name }}-{{ .Values.keycloak.name }}-pg-sa
+            name: {{ .Values.keycloak.name }}-pg-sa

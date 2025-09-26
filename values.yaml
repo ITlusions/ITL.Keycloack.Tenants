@@ -17,7 +17,7 @@ keycloak:
   # Enable fine-grained authorization features for user role requests
   features:
     - admin-fine-grained-authz-v2    # Fine-grained admin permissions
-    - account3                       # Enhanced Account Console (Account 3.0)
+    #- account3                       # Enhanced Account Console (Account 3.0)
     - authorization                  # Authorization Services
     - dynamic-scopes                 # Dynamic OAuth scopes
   

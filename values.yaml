@@ -8,6 +8,27 @@ modsecurity:
 # Keycloak Configuration
 keycloak:
   enabled: true
+  # Custom Keycloak image (optional)
+  # If not specified, the Keycloak operator will use its default image
+  # image: "quay.io/keycloak/keycloak:22.0.5"
+  # image: "registry.redhat.io/rh-sso-7/sso76-openshift-rhel8:7.6"
+  # image: "your-registry.com/custom-keycloak:latest"
+  
+  # Enable fine-grained authorization features for user role requests
+  features:
+    - admin-fine-grained-authz-v2    # Fine-grained admin permissions
+    - account3                       # Enhanced Account Console (Account 3.0)
+    - authorization                  # Authorization Services
+    - dynamic-scopes                 # Dynamic OAuth scopes
+  
+  # Additional configuration options for role request features
+  additionalOptions:
+    - name: features
+      value: "admin-fine-grained-authz-v2,account3,authorization"
+    - name: spi-user-profile-legacy-user-profile-read-only-attributes
+      value: ""
+    - name: spi-user-profile-legacy-user-profile-admin-read-only-attributes
+      value: ""
 
 # Database Configuration  
 database:

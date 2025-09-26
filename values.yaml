@@ -32,4 +32,4 @@ keycloak:
 
 # Database Configuration  
 database:
-  enabled: true
+  enabled: false

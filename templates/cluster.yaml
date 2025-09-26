@@ -5,19 +5,19 @@ metadata:
 spec:
   instances: {{ .Values.keycloak.instances }}
   {{- if .Values.keycloak.image }}
-    image: {{ .Values.keycloak.image }}
+  image: {{ .Values.keycloak.image }}
   {{- end }}
   {{- if .Values.keycloak.features }}
-    features:
+  features:
   {{- range .Values.keycloak.features }}
-      - {{ . }}
+    - {{ . }}
   {{- end }}
   {{- end }}
   {{- if .Values.keycloak.additionalOptions }}
-    additionalOptions:
+  additionalOptions:
   {{- range .Values.keycloak.additionalOptions }}
-      - name: {{ .name }}
-        value: {{ .value | quote }}
+    - name: {{ .name }}
+      value: {{ .value | quote }}
   {{- end }}
   {{- end }}
   db:

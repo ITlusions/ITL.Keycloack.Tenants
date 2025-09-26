@@ -46,9 +46,9 @@ spec:
     storageClass: {{ .Values.database.storage.storageClass | default "longhorn" }}
     resizeInUseVolumes: true
 
-  # Monitoring and logging
-  monitoring:
-    enabled: {{ .Values.database.monitoring.enabled | default true }}
+  # # Monitoring and logging
+  # monitoring:
+  #   enabled: {{ .Values.database.monitoring.enabled | default true }}
     
   # Resource limits
   resources:

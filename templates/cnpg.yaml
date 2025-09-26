@@ -1,0 +1,130 @@
+{{- if .Values.database.enabled }}
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: {{ .Release.Name }}-{{ .Values.keycloak.name }}-pg-cluster
+  namespace: {{ .Release.Namespace }}
+spec:
+  instances: {{ .Values.database.instances | default 3 }}
+  
+  # PostgreSQL configuration
+  postgresql:
+    parameters:
+      max_connections: "200"
+      shared_buffers: "256MB"
+      effective_cache_size: "1GB"
+      maintenance_work_mem: "64MB"
+      checkpoint_completion_target: "0.5"
+      wal_buffers: "16MB"
+      default_statistics_target: "100"
+      random_page_cost: "1.1"
+      effective_io_concurrency: "200"
+      work_mem: "4MB"
+      min_wal_size: "1GB"
+      max_wal_size: "4GB"
+      max_worker_processes: "8"
+      max_parallel_workers_per_gather: "2"
+      max_parallel_workers: "8"
+      max_parallel_maintenance_workers: "2"
+    shared_preload_libraries:
+      - "pg_stat_statements"
+
+  # Database initialization
+  bootstrap:
+    initdb:
+      database: {{ .Values.database.name | default "keycloak" }}
+      owner: {{ .Values.database.username | default "keycloak" }}
+      secret:
+        name: {{ .Values.keycloak.db.passwordSecret.name }}
+      encoding: UTF8
+      localeCollate: "en_US.utf8"
+      localeCType: "en_US.utf8"
+
+  # Storage configuration
+  storage:
+    size: {{ .Values.database.storage.size | default "20Gi" }}
+    storageClass: {{ .Values.database.storage.storageClass | default "longhorn" }}
+    resizeInUseVolumes: true
+
+  # Monitoring and logging
+  monitoring:
+    enabled: {{ .Values.database.monitoring.enabled | default true }}
+    
+  # Resource limits
+  resources:
+    requests:
+      memory: {{ .Values.database.resources.requests.memory | default "256Mi" }}
+      cpu: {{ .Values.database.resources.requests.cpu | default "100m" }}
+    limits:
+      memory: {{ .Values.database.resources.limits.memory | default "1Gi" }}
+      cpu: {{ .Values.database.resources.limits.cpu | default "500m" }}
+
+  # Backup configuration
+  {{- if .Values.database.backup.enabled }}
+  backup:
+    barmanObjectStore:
+      destinationPath: {{ .Values.database.backup.destinationPath | default "s3://backup-bucket/postgresql" }}
+      s3Credentials:
+        accessKeyId:
+          name: {{ .Values.database.backup.s3Credentials.secretName }}
+          key: ACCESS_KEY_ID
+        secretAccessKey:
+          name: {{ .Values.database.backup.s3Credentials.secretName }}
+          key: SECRET_ACCESS_KEY
+      wal:
+        retention: {{ .Values.database.backup.walRetention | default "7d" }}
+      data:
+        retention: {{ .Values.database.backup.dataRetention | default "30d" }}
+        jobs: {{ .Values.database.backup.jobs | default 1 }}
+  {{- end }}
+
+  # High Availability configuration
+  primaryUpdateStrategy: unsupervised
+  
+  # Connection pooling
+  connectionPooler:
+    enabled: {{ .Values.database.connectionPooler.enabled | default false }}
+    {{- if .Values.database.connectionPooler.enabled }}
+    instances: {{ .Values.database.connectionPooler.instances | default 3 }}
+    type: {{ .Values.database.connectionPooler.type | default "rw" }}
+    pgbouncer:
+      poolMode: {{ .Values.database.connectionPooler.poolMode | default "transaction" }}
+      parameters:
+        max_client_conn: "200"
+        default_pool_size: "25"
+    {{- end }}
+
+---
+# Service for read-write connections
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.keycloak.db.host }}
+  namespace: {{ .Release.Namespace }}
+spec:
+  type: ClusterIP
+  selector:
+    cnpg.io/cluster: {{ .Release.Name }}-{{ .Values.keycloak.name }}-pg-cluster
+    role: primary
+  ports:
+    - name: postgres
+      port: 5432
+      targetPort: 5432
+
+---
+# Service for read-only connections (optional)
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.keycloak.db.host }}-ro
+  namespace: {{ .Release.Namespace }}
+spec:
+  type: ClusterIP
+  selector:
+    cnpg.io/cluster: {{ .Release.Name }}-{{ .Values.keycloak.name }}-pg-cluster
+    role: replica
+  ports:
+    - name: postgres
+      port: 5432
+      targetPort: 5432
+{{- end }}

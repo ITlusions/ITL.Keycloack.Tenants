@@ -29,6 +29,25 @@ certificate:
   additionalDnsNames:
     - login.itlusions.com
 
+# Database Configuration for this tenant
+database:
+  enabled: true
+  instances: 3
+  name: keycloak
+  username: keycloak
+  storage:
+    size: 50Gi
+    storageClass: ha-gen-lh
+  resources:
+    requests:
+      memory: 1Gi
+      cpu: 500m
+    limits:
+      memory: 4Gi
+      cpu: 2000m
+  monitoring:
+    enabled: true
+
 ingress:
   enabled: true
   className: "traefik"

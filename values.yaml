@@ -8,7 +8,45 @@ modsecurity:
 # Keycloak Configuration
 keycloak:
   enabled: true
-  
+
 # Database Configuration  
 database:
   enabled: true
+  instances: 3
+  name: keycloak
+  username: keycloak
+  
+  # Storage configuration
+  storage:
+    size: 20Gi
+    storageClass: ha-gen-lh
+    
+  # Resource limits
+  resources:
+    requests:
+      memory: 512Mi
+      cpu: 200m
+    limits:
+      memory: 2Gi
+      cpu: 1000m
+      
+  # Monitoring
+  monitoring:
+    enabled: true
+    
+  # Backup configuration (optional)
+  backup:
+    enabled: false
+    destinationPath: "s3://backup-bucket/postgresql"
+    walRetention: "7d"
+    dataRetention: "30d"
+    jobs: 1
+    s3Credentials:
+      secretName: s3-credentials
+      
+  # Connection pooling (optional)
+  connectionPooler:
+    enabled: false
+    instances: 3
+    type: rw
+    poolMode: transaction

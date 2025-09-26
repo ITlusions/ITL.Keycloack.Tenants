@@ -7,8 +7,12 @@ spec:
   db:
     vendor: {{ .Values.keycloak.db.vendor }}
     host: {{ .Values.keycloak.db.host }}
-    username: {{ .Values.keycloak.db.username }}
-    password: {{ .Values.keycloak.db.password }}
+    usernameSecret:
+      name: {{ .Values.keycloak.db.usernameSecret.name }}
+      key: {{ .Values.keycloak.db.usernameSecret.key }}
+    passwordSecret:
+      name: {{ .Values.keycloak.db.passwordSecret.name }}
+      key: {{ .Values.keycloak.db.passwordSecret.key }}
   http:
     httpEnabled: false
     httpPort: 8180

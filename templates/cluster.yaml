@@ -8,10 +8,10 @@ spec:
     vendor: {{ .Values.keycloak.db.vendor }}
     host: {{ .Values.keycloak.db.host }}
     usernameSecret:
-      name: {{ .Release.Name }}-{{ .Values.keycloak.name }}-credentials
+      name: {{ .Release.Name }}-{{ .Values.keycloak.name }}-initial-admin
       key: username
     passwordSecret:
-      name: {{ .Release.Name }}-{{ .Values.keycloak.name }}-credentials
+      name: {{ .Release.Name }}-{{ .Values.keycloak.name }}-initial-admin
       key: password
   http:
     httpEnabled: false

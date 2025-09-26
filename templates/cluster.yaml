@@ -4,22 +4,22 @@ metadata:
   name: {{ .Release.Name }}-{{ .Values.keycloak.name }}
 spec:
   instances: {{ .Values.keycloak.instances }}
-{{- if .Values.keycloak.image }}
-  image: {{ .Values.keycloak.image }}
-{{- end }}
-{{- if .Values.keycloak.features }}
-  features:
-{{- range .Values.keycloak.features }}
-    - {{ . }}
-{{- end }}
-{{- end }}
-{{- if .Values.keycloak.additionalOptions }}
-  additionalOptions:
-{{- range .Values.keycloak.additionalOptions }}
-    - name: {{ .name }}
-      value: {{ .value | quote }}
-{{- end }}
-{{- end }}
+  {{- if .Values.keycloak.image }}
+    image: {{ .Values.keycloak.image }}
+  {{- end }}
+  {{- if .Values.keycloak.features }}
+    features:
+  {{- range .Values.keycloak.features }}
+      - {{ . }}
+  {{- end }}
+  {{- end }}
+  {{- if .Values.keycloak.additionalOptions }}
+    additionalOptions:
+  {{- range .Values.keycloak.additionalOptions }}
+      - name: {{ .name }}
+        value: {{ .value | quote }}
+  {{- end }}
+  {{- end }}
   db:
     vendor: {{ .Values.keycloak.db.vendor }}
     host: {{ .Values.keycloak.db.host }}

@@ -20,6 +20,10 @@ chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
 {{- end -}}
 {{- end -}}
 
+{{- define "itl.keycloack.tenants.databaseName" -}}
+{{- .Values.keycloak.name | default (printf "%s-db" (include "itl.keycloack.tenants.fullname" .)) -}}
+{{- end -}}
+
 # {{- define "itl.keycloack.tenants.secretCredentials" -}}
 # {{- $keycloack := .Values.keycloak | default dict -}}
 # {{- $secretNamespace := $keycloack.secretNamespace | default .Release.Namespace -}}

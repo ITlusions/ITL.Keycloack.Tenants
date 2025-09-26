@@ -8,11 +8,11 @@ spec:
     vendor: {{ .Values.keycloak.db.vendor }}
     host: {{ .Values.keycloak.db.host }}
     usernameSecret:
-      name: {{ .Release.Name }}-{{ .Values.keycloak.name }}-initial-admin
-      key: username
+      name: {{ .Values.keycloak.db.usernameSecret.name }}
+      key: {{ .Values.keycloak.db.usernameSecret.key }}
     passwordSecret:
-      name: {{ .Release.Name }}-{{ .Values.keycloak.name }}-initial-admin
-      key: password
+      name: {{ .Values.keycloak.db.passwordSecret.name }}
+      key: {{ .Values.keycloak.db.passwordSecret.key }}
   http:
     httpEnabled: false
     httpPort: 8180

@@ -7,10 +7,10 @@ spec:
   {{- if .Values.keycloak.image }}
   image: {{ .Values.keycloak.image }}
   {{- end }}
-  {{- if .Values.keycloak.features }}
+  {{- if false }}
   features:
   {{- range .Values.keycloak.features }}
-    - {{ . }}
+    - {{ . | quote }}
   {{- end }}
   {{- end }}
   {{- if .Values.keycloak.additionalOptions }}

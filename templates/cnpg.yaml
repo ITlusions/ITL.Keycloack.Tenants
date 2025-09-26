@@ -81,17 +81,17 @@ spec:
   # High Availability configuration
   primaryUpdateStrategy: unsupervised
   
-  # Connection pooling
-  connectionPooler:
-    enabled: {{ .Values.database.connectionPooler.enabled | default false }}
-    {{- if .Values.database.connectionPooler.enabled }}
-    instances: {{ .Values.database.connectionPooler.instances | default 3 }}
-    type: {{ .Values.database.connectionPooler.type | default "rw" }}
-    pgbouncer:
-      poolMode: {{ .Values.database.connectionPooler.poolMode | default "transaction" }}
-      parameters:
-        max_client_conn: "200"
-        default_pool_size: "25"
+  # # Connection pooling
+  # connectionPooler:
+  #   enabled: {{ .Values.database.connectionPooler.enabled | default false }}
+  #   {{- if .Values.database.connectionPooler.enabled }}
+  #   instances: {{ .Values.database.connectionPooler.instances | default 3 }}
+  #   type: {{ .Values.database.connectionPooler.type | default "rw" }}
+  #   pgbouncer:
+  #     poolMode: {{ .Values.database.connectionPooler.poolMode | default "transaction" }}
+  #     parameters:
+  #       max_client_conn: "200"
+  #       default_pool_size: "25"
     {{- end }}
 
 ---

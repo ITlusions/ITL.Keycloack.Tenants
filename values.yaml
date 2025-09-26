@@ -8,6 +8,9 @@ modsecurity:
 # Keycloak Configuration
 keycloak:
   enabled: true
+  db:
+    username: error
+    password: error
 
 # Database Configuration  
 database:

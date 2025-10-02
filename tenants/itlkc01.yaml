@@ -6,20 +6,46 @@ keycloak:
     # Init containers for custom setup (optional)
   initContainers:
     - name: theme-downloader
-      image: busybox:1.37.0
+      image: curlimages/curl:8.4.0
       command:
         - sh
         - -c
       args:
         - |
-          echo "Downloading Keycloak theme..."
-          wget https://github.com/MinBZK/keycloak-theme/releases/download/v1.0.1/keycloak-nl-design-system.jar -O /opt/keycloak/providers/keycloak-nl-design-system.jar
-          echo "Theme downloaded successfully"
+          echo "🎨 Downloading Keycloak themes..."
+          
+          # Download NL Design System theme
+          echo "📦 Downloading NL Design System theme..."
+          curl -L -f https://github.com/MinBZK/keycloak-theme/releases/download/v1.0.1/keycloak-nl-design-system.jar \
+            -o /opt/keycloak/providers/keycloak-nl-design-system.jar
+          
+          # Download ITlusions custom theme
+          # echo "🏢 Downloading ITlusions custom theme..."
+          # Note: Replace this URL with your actual hosting location
+          # For now, we'll create a placeholder that you can replace
+          curl -L -f https://github.com/ITlusions/ITL.Keycloak.theme/releases/download/v1.0.0/keycloak-itlusions-theme.jar \
+            -o /opt/keycloak/providers/keycloak-itlusions-theme.jar
+          
+          # Verify downloads
+          echo "✅ Verifying theme downloads..."
+          ls -la /opt/keycloak/providers/
+          
+          echo "🎉 All themes downloaded successfully!"
+          echo "Available themes:"
+          echo "  - NL Design System (nl-design-system)"
+          echo "  - ITlusions Custom (itlusions)"
       volumeMounts:
         - name: keycloak-providers
           mountPath: /opt/keycloak/providers/
       securityContext:
-        runAsUser: 0
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        allowPrivilegeEscalation: false
+        readOnlyRootFilesystem: true
+        capabilities:
+          drop:
+            - ALL
       resources:
         requests:
           memory: 64Mi

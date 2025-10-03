@@ -23,13 +23,13 @@ keycloak:
           # echo "🏢 Downloading ITlusions custom themes..."
           # Note: Replace this URL with your actual hosting location
           # For now, we'll create a placeholder that you can replace
-          curl -L -f https://github.com/ITlusions/ITL.Keycloak.Theme/releases/download/v1.2.0/keycloak-itlusions-theme.jar \
+          curl -L -f https://github.com/ITlusions/ITL.Keycloak.Theme/releases/download/v1.2.1/keycloak-itlusions-theme.jar \
             -o /opt/keycloak/providers/keycloak-itlusions-theme.jar
 
-          curl -L -f https://github.com/ITlusions/ITL.Keycloak.Theme/releases/download/v1.2.0/keycloak-itlusions-neon-theme.jar \
+          curl -L -f https://github.com/ITlusions/ITL.Keycloak.Theme/releases/download/v1.2.1/keycloak-itlusions-neon-theme.jar \
             -o /opt/keycloak/providers/keycloak-itlusions-neon-theme.jar
 
-          curl -L -f https://github.com/ITlusions/ITL.Keycloak.Theme/releases/download/v1.2.0/keycloak-itlusions-dark-theme.jar \
+          curl -L -f https://github.com/ITlusions/ITL.Keycloak.Theme/releases/download/v1.2.1/keycloak-itlusions-dark-theme.jar \
             -o /opt/keycloak/providers/keycloak-itlusions-dark-theme.jar
 
           # Verify downloads

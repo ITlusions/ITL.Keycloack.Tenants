@@ -19,18 +19,20 @@ keycloak:
           curl -L -f https://github.com/MinBZK/keycloak-theme/releases/download/v1.0.1/keycloak-nl-design-system.jar \
             -o /opt/keycloak/providers/keycloak-nl-design-system.jar
           
-          # Download ITlusions custom theme
-          # echo "🏢 Downloading ITlusions custom themes..."
-          # Note: Replace this URL with your actual hosting location
-          # For now, we'll create a placeholder that you can replace
-          curl -L -f https://github.com/ITlusions/ITL.Keycloak.Theme/releases/download/v1.2.1/keycloak-itlusions-theme.jar \
-            -o /opt/keycloak/providers/keycloak-itlusions-theme.jar
+          # Download ITlusions custom themes using latest release from GitHub API
+                echo "🏢 Downloading ITlusions custom themes (latest release)..."
+                latest_release_url="https://api.github.com/repos/ITlusions/ITL.Keycloak.Theme/releases/latest"
+                latest_tag=$(curl -s $latest_release_url | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
+                base_url="https://github.com/ITlusions/ITL.Keycloak.Theme/releases/download/$latest_tag"
 
-          curl -L -f https://github.com/ITlusions/ITL.Keycloak.Theme/releases/download/v1.2.1/keycloak-itlusions-neon-theme.jar \
-            -o /opt/keycloak/providers/keycloak-itlusions-neon-theme.jar
+                curl -L -f "$base_url/keycloak-itlusions-theme.jar" \
+                -o /opt/keycloak/providers/keycloak-itlusions-theme.jar
 
-          curl -L -f https://github.com/ITlusions/ITL.Keycloak.Theme/releases/download/v1.2.1/keycloak-itlusions-dark-theme.jar \
-            -o /opt/keycloak/providers/keycloak-itlusions-dark-theme.jar
+                curl -L -f "$base_url/keycloak-itlusions-neon-theme.jar" \
+                -o /opt/keycloak/providers/keycloak-itlusions-neon-theme.jar
+
+                curl -L -f "$base_url/keycloak-itlusions-dark-theme.jar" \
+                -o /opt/keycloak/providers/keycloak-itlusions-dark-theme.jar
 
           # Verify downloads
           echo "✅ Verifying theme downloads..."
@@ -39,7 +41,7 @@ keycloak:
           echo "🎉 All themes downloaded successfully!"
           echo "Available themes:"
           echo "  - NL Design System (nl-design-system)"
-          echo "  - ITlusions Custom (itlusions)"
+          echo "  - ITlusions Custom Themes (itlusions)"
       volumeMounts:
         - name: keycloak-providers
           mountPath: /opt/keycloak/providers/
@@ -132,4 +134,3 @@ ingress:
     - secretName: itl-keycloak-tenants-itlkc01-prd-tls
       hosts:
         - sts.itlusions.com
-
